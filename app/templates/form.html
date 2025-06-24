@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Public Transport Log</title>
+</head>
+<body>
+    <h1>Public Transport Route</h1>
+    <form method="POST">
+        Start: <input type="text" name="start" required><br>
+        End: <input type="text" name="end" required><br>
+        <input type="submit" value="Calculate">
+    </form>
+    {% if result %}
+        <h2>{{ result }}</h2>
+    {% endif %}
+</body>
+</html>

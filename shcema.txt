@@ -1,0 +1,66 @@
++---------------------------+
+|        Web Form            |
+|  [ Start ]   [ End ]       |
+|       [ Submit ]           |
++------------+--------------+
+             |
+             v
++---------------------------+
+|         Flask App          |
+|    Route: "/" POST         |
++------------+--------------+
+             |
+             v
++---------------------------+
+|   transport.get_schedule() |
+|   - API / Scraping data    |
+|   - Simpan ke Pandas       |
+|   - Hitung travel time     |
++------------+--------------+
+             |
+             v
++---------------------------+
+|    Return hasil ke Form    |
+|    Tampilkan travel time   |
++---------------------------+
+
+simple flow : 
+
+User buka web form, lalu isi lokasi awal (start) dan tujuan (end). Habis itu, user klik tombol submit untuk kirim data.
+Data itu diterima sama Flask app lewat route "/" dengan metode POST.
+Di belakang layar, fungsi get_schedule() dijalankan. Fungsinya buat ambil data jadwal dari API atau scraping website transportasi. Data itu disimpan di Pandas biar rapi, terus dihitung berapa lama waktu perjalanan dari start ke end.
+Setelah proses selesai, hasilnya dikirim balik ke web form dan ditampilin ke user biar tahu estimasi waktu perjalanannya.
+
+Structure :
+tujuan : "Supaya project ini scalable. Kalau nanti tambah fitur, misalnya login user, logging, atau database, tinggal tambahkan file/module baru tanpa ngacak-ngacak file lain."
+idea : "This structure makes the app scalable. If we want to add more features, like user login, logging, or database integration, we can add new files or modules without messing up the existing code."
+
+✅ main.py
+Sebagai entry point aplikasi. Jadi saat saya jalankan python main.py, aplikasi Flask mulai jalan.
+This is the entry point of the app. When I run python main.py, it starts the Flask server.
+
+✅ app/__init__.py
+ini buat inisialisasi Flask app-nya. Trus kita import route di situ biar pas app-nya jalan, semua route udah dikenal sama Flask.
+This initializes the Flask app and registers the routes. It ensures Flask knows all the endpoints from the start.
+
+✅ app/routes.py
+Biar route fokus ngurus web (form, halaman) dan transport khusus ngurus logic data, kayak ambil API, scraping, sama hitung travel time. Jadi lebih bersih dan gampang maintenance
+This file manages the web logic, such as handling forms and processing user input. It’s separated to keep route code clean.
+
+✅ app/transport.py
+Tempat function ambil data (API / scraping) dan hitung travel time. Ini dipisah supaya web logic nggak tercampur dengan logic data.
+This handles getting data from the API or scraping and calculating travel time. It's separated so web logic doesn’t mix with data logic.
+
+✅ templates/form.html
+Tempat file HTML untuk tampilkan form dan hasil ke user. Flask otomatis nyari template di folder ini.
+This is the HTML form the user interacts with. Flask automatically looks for templates in this folder.
+
+✅ requirements.txt
+Supaya semua orang yang mau jalankan project ini tahu library apa saja yang harus di-install.
+Lists all the libraries needed so others can install them easily.
+
+✅ .gitignore
+Supaya file sementara, cache, atau file sensitif nggak ke-push ke GitHub.
+Ensures that cache files, temp files, or sensitive files don’t get pushed to GitHub.
+
+
