@@ -3,3 +3,10 @@ __pycache__/
 .env
 
 # API key / env
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.DS_Store
